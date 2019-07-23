@@ -1,2 +1,2 @@
-# practice-amsible
+# practice-ansible
 my practice codes for ansible
