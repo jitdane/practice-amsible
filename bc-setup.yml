@@ -1,0 +1,22 @@
+---
+- name: create bootcamp environment
+  hosts:
+  - bootcamp
+  become: true
+  gather_facts: false
+  tasks:
+  - name: add /etc/profile.d/{{ mach_mode }}.sh
+    template:
+      src: "templates/template.j2"
+      dest: "/etc/profile.d/{{ mach_mode }}.sh"
+      mode: 0644
+  - name: add users
+    user:
+      name: "{{  item  }}"
+    with_items: "{{  usernames  }}"
+  - name: create authorized_keys
+    authorized_key:
+      user: "{{ item }}"
+      key: "{{ lookup('file', 'files/' + item + '_key.pub') }}"
+      manage_dir: yes
+    with_items: "{{  usernames  }}"

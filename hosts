@@ -1,0 +1,11 @@
+[bootcamp]
+127.0.0.1
+
+[playground]
+18.136.101.183
+
+[bootcamp:vars]
+mach_mode = bootcamp
+
+[playground:vars]
+mach_mode = playground

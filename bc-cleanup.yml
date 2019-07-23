@@ -1,0 +1,21 @@
+---
+- name: cleanup before creating the items for the bootcamp
+  hosts:
+  - bootcamp
+  become: true
+  gather_facts: false
+  tasks:
+  - name: delete /etc/profile.d/{{ mach_mode }}.sh
+    file:
+      path: "/etc/profile.d/{{ mach_mode }}.sh"
+      state: absent
+  - name: delete any /tmp/reports folder
+    file:
+      path: /tmp/reports
+      state: absent
+  - name: cleanup users
+    user:
+      name: "{{  item  }}"
+      state: absent
+      remove: yes
+    with_items: "{{  usernames  }}"
