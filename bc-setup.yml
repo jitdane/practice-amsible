@@ -21,5 +21,5 @@
       manage_dir: yes
     with_items: "{{ usernames }}"
   - name: assign passwords
-    shell: "cat files/{{ item }}.pass | passwd --std {{ item }}" 
+    shell: "cat files/{{ item }}.pass | passwd --stdin {{ item }}" 
     with_items: "{{ usernames }}"
