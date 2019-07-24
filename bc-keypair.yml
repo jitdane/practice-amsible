@@ -12,7 +12,7 @@
       path: "{{ playbook_dir }}/files/{{ item }}_key"
     with_items: "{{ usernames }}"
   - name: create password file for a user
-    shell: "head /dev/urandom | tr -dc A-Za-z0-9 | head -c 12 > {{ passdir }}/{{ item }}.pass"
+    shell: "qq=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 12); echo $qq > {{ passdir }}/{{ item }}.pass"
     args:
       creates: "{{ passdir }}/{{ item }}.pass"
     with_items: "{{ usernames }}"

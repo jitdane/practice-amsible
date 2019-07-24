@@ -1,2 +1,3 @@
 ansible-user-creation.ws
 files/*
+ansible.env

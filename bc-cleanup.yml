@@ -13,9 +13,18 @@
     file:
       path: /tmp/reports
       state: absent
+  - name: rmdir /tmp/bootcamp
+    file:
+      path: /tmp/bootcamp
+      state: absent
   - name: cleanup users
     user:
-      name: "{{  item  }}"
+      name: "{{ item }}"
       state: absent
       remove: yes
-    with_items: "{{  usernames  }}"
+    with_items: "{{ usernames }}"
+  - name: rm files/*user*
+    shell: "rm -fr {{ playbook_dir }}/files/{{ item }}*"
+    args:
+      warn: no
+    with_items: "{{ usernames }}"

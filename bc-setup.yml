@@ -10,6 +10,10 @@
       src: "templates/env.j2"
       dest: "/etc/profile.d/{{ mach_mode }}.sh"
       mode: 0644
+  - name: mkdir /tmp/reports
+    file:
+      path: /tmp/reports
+      state: directory
   - name: add users
     user:
       name: "{{ item }}"
@@ -21,5 +25,5 @@
       manage_dir: yes
     with_items: "{{ usernames }}"
   - name: assign passwords
-    shell: "cat files/{{ item }}.pass | passwd --stdin {{ item }}" 
+    shell: "cat {{ playbook_dir }}/files/{{ item }}.pass | passwd --stdin {{ item }}" 
     with_items: "{{ usernames }}"
