@@ -12,11 +12,14 @@
       mode: 0644
   - name: add users
     user:
-      name: "{{  item  }}"
-    with_items: "{{  usernames  }}"
+      name: "{{ item }}"
+    with_items: "{{ usernames }}"
   - name: create authorized_keys
     authorized_key:
       user: "{{ item }}"
       key: "{{ lookup('file', 'files/' + item + '_key.pub') }}"
       manage_dir: yes
-    with_items: "{{  usernames  }}"
+    with_items: "{{ usernames }}"
+  - name: assign passwords
+    shell: "cat files/{{ item }}.pass | passwd --std {{ item }}" 
+    with_items: "{{ usernames }}"

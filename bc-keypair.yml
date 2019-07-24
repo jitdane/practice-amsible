@@ -2,10 +2,17 @@
 - name: Generate login credentials for users
   hosts:
   - bootcamp
+  vars:
+    passdir: "{{ playbook_dir }}/files"
   become: true
   gather_facts: false
   tasks:
   - name: create private and public key (RSA) for a user
     openssh_keypair:
       path: "{{ playbook_dir }}/files/{{ item }}_key"
-    with_items: "{{  usernames  }}"
+    with_items: "{{ usernames }}"
+  - name: create password file for a user
+    shell: "head /dev/urandom | tr -dc A-Za-z0-9 | head -c 12 > {{ passdir }}/{{ item }}.pass"
+    args:
+      creates: "{{ passdir }}/{{ item }}.pass"
+    with_items: "{{ usernames }}"
