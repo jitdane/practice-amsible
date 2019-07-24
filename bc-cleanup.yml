@@ -23,6 +23,11 @@
       state: absent
       remove: yes
     with_items: "{{ usernames }}"
+  - name: rm {{ sudodir }}/sudo-<user> (sudo files)
+    file:
+      path: "{{ sudodir }}/sudo-{{ item }}"
+      state: absent
+    with_items: "{{ usernames }}"
   - name: rm files/*user*
     shell: "rm -fr {{ playbook_dir }}/files/{{ item }}*"
     args:

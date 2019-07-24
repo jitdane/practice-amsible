@@ -1,0 +1,23 @@
+---
+- name: add sudo privilege
+  hosts:
+  - bootcamp
+  vars:
+    usernames:
+    - unixrox
+  become: true
+  gather_facts: false
+  tasks:
+  - name: add user to 'wheel'
+    user:
+      name: "{{ item }}"
+      groups: wheel
+      append: yes
+    with_items: "{{ usernames }}"
+  - name: add {{ sudodir }}/sudo-<user>
+    template:
+      src: "templates/sudo.j2"
+      dest: "{{ sudodir }}/sudo-{{ item }}"
+      #mode: 0440
+      validate: /usr/sbin/visudo -cf %s
+    with_items: "{{ usernames }}"

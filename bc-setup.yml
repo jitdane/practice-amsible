@@ -14,7 +14,7 @@
     file:
       path: /tmp/reports
       state: directory
-  - name: add users
+  - name: create user
     user:
       name: "{{ item }}"
     with_items: "{{ usernames }}"
@@ -24,6 +24,6 @@
       key: "{{ lookup('file', 'files/' + item + '_key.pub') }}"
       manage_dir: yes
     with_items: "{{ usernames }}"
-  - name: assign passwords
+  - name: assign password
     shell: "cat {{ playbook_dir }}/files/{{ item }}.pass | passwd --stdin {{ item }}" 
     with_items: "{{ usernames }}"

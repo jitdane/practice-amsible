@@ -1,4 +1,5 @@
 ---
+sudodir: /etc/sudoers.d
 usernames:
  - bootcamp
  - unixrox
