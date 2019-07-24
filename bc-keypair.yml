@@ -1,0 +1,11 @@
+---
+- name: Generate login credentials for users
+  hosts:
+  - bootcamp
+  become: true
+  gather_facts: false
+  tasks:
+  - name: create private and public key (RSA) for a user
+    openssh_keypair:
+      path: "{{ playbook_dir }}/files/{{ item }}_key"
+    with_items: "{{  usernames  }}"
