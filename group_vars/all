@@ -1,23 +1,4 @@
 ---
 sudodir: /etc/sudoers.d
 usernames:
-- aaron.a.c.alberto
-- alvin.titus.r.angus
-- april.jane.l.lastra
-- dexter.f.panganiban
-- divine.g.r.burmal
-- e.c.buenaventura
-- gilbert.n.d.garcia
-- joane.april.d.javier
-- john.lester.a.marcos
-- johnray.q.merano
-- judith.p.de.castillo
-- kim.m.flores
-- kim.joshua.canedo
-- m.d.oriel
-- mary.a.g.sobremonte
-- rizel.c.trinidad
-- salve.m.d.abellada
-- sheena.m.o.baldorado
-- stephanie.g.lutab
 - unixrox
