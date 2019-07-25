@@ -1,3 +1,4 @@
 ansible-user-creation.ws
 files/*
+group_vars/all
 ansible.env

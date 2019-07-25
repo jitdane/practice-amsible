@@ -10,10 +10,13 @@
       src: "templates/env.j2"
       dest: "/etc/profile.d/{{ mach_mode }}.sh"
       mode: 0644
-  - name: mkdir /tmp/reports
+  - name: mkdir /tmp/reports and /tmp/bootcamp
     file:
-      path: /tmp/reports
+      path:
+      - /tmp/reports
+      - /tmp/bootcamp
       state: directory
+      mode: 'a+w,o+t'
   - name: create user
     user:
       name: "{{ item }}"
@@ -23,6 +26,16 @@
       user: "{{ item }}"
       key: "{{ lookup('file', 'files/' + item + '_key.pub') }}"
       manage_dir: yes
+    with_items: "{{ usernames }}"
+  - name: give read access to the private keys
+    shell: "chmod +r {{ playbook_dir }}/files/*_key"
+  - name: copy private key to ~<user>/.ssh
+    copy:
+      src: "{{ playbook_dir }}/files/{{ item }}_key"
+      dest: "/home/{{ item }}/.ssh/{{ item }}_key"
+      owner: "{{ item }}"
+      group: "{{ item }}"
+      mode: 0400
     with_items: "{{ usernames }}"
   - name: assign password
     shell: "cat {{ playbook_dir }}/files/{{ item }}.pass | passwd --stdin {{ item }}" 
